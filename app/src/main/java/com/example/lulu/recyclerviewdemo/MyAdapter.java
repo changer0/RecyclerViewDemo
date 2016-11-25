@@ -83,6 +83,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         //notifyDataSetChanged();//不要使用这种方式
         notifyItemRemoved(position);
     }
+    //添加数据
+    public void add (int position, String data) {
+        list.add(position, data);
+        notifyItemChanged(position);
+    }
+
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         private final TextView textView;
@@ -95,5 +101,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
 
     public interface OnChildClickListener {
         void onChildClick(RecyclerView parent, View view, int position, String data);
+
     }
 }
