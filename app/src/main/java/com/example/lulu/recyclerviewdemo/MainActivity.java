@@ -2,6 +2,11 @@ package com.example.lulu.recyclerviewdemo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -64,6 +69,32 @@ public class MainActivity extends AppCompatActivity implements MyAdapter.OnChild
         recycler.setItemAnimator(animator);
         adapter.setOnChildClickListener(this);
         recycler.setAdapter(adapter);
+        recycler.addItemDecoration(new RecyclerView.ItemDecoration() {
+            //所有控件绘制之前调用的绘制方法, 会更加的灵活
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                super.onDraw(c, parent, state);
+                c.drawColor(Color.GREEN);
+            }
+
+            //前景绘制, 就是在所有的控件之上绘制
+            @Override
+            public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                super.onDrawOver(c, parent, state);
+                //不要绘制方法中写该方法 , 此处只是为了做测试
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+                c.drawBitmap(bitmap, 400, 400, null);
+
+            }
+
+            // 行间距
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                super.getItemOffsets(outRect, view, parent, state);
+                int position = parent.getChildAdapterPosition(view);
+                outRect.set(0, 5 * position, 0, 5 * position);
+            }
+        });
 
     }
 

@@ -65,6 +65,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> impl
         return list.size();
     }
 
+    //用于RecyclerView的多布局复用
+    @Override
+    public int getItemViewType(int position) {
+        // 返回值可以是任意值
+        return super.getItemViewType(position);
+    }
+
     // -----------------------
     // View的点击事件
     @Override
